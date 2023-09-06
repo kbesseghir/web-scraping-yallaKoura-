@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-date=input('can u enter the date please follow thi format MM/DD/YYYY:')
+date=input('can u enter the date please follow this format MM/DD/YYYY:')
 page = requests.get(f'https://www.yallakora.com/match-center/%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B1%D9%8A%D8%A7%D8%AA?date={date}')
 
 
@@ -30,7 +30,7 @@ def main(page):
            result=all_match[i].find('div',{'class':'MResult'}).find_all('span',{'class':'score'})
            score = f"{result[0].text.strip()} - {result[1].text.strip()}"
 
-           match_details.append({'نوع البطولة':titel,'الفريق الاول':teamA,'الفريق الثاني':teamB,' الوقت':time,'النتيجة':score})
+           match_details.append({'نوع البطولة':titel,'الفريق الاول':teamA,'النتيجة':score,'الفريق الثاني':teamB,' الوقت':time})
 
 
     for i in range(number_champions):
@@ -40,7 +40,7 @@ def main(page):
     keys= match_details[0].keys()
     print(keys)
     
-    with open('/home/kheira/Documents/scraping/yallakoura2.csv','w') as  output_file:
+    with open('yallakoura2.csv','w') as  output_file:
         dict_writer=csv.DictWriter(output_file,keys)
         dict_writer.writeheader()
         for match in match_details:
